@@ -85,7 +85,7 @@
                         pButton
                         type="button"
                         icon="pi pi-pencil"
-                        (click)="editarProdutoPedido($event, produto)"
+                        (click)="editarProdutoVenda($event, produto)"
                         style="margin-left: 10px;"
                      ></button>
                   </p-panel>
@@ -142,19 +142,18 @@
    showEffect="fade"
    [modal]="true"
    [style]="{ width: '80vw', height: '50vw' }"
-   [baseZIndex]="10000"
    [draggable]="false"
    [resizable]="false"
 >
-   <div class="ui-g-12 ui-md-12 ui-fluid">
-      <label for="">Quantidade</label>
-      <p-spinner [(ngModel)]="quantidade" [min]="1" [max]="20"></p-spinner>
-      <div class="ui-g-12 ui-md-6 ui-fluid">
+   <p-tabView>
+      <p-tabPanel header="Quantidade" leftIcon="pi pi-calendar">
+         <p-spinner [(ngModel)]="quantidade" [min]="1" [max]="20"></p-spinner>
          <div class="ui-inputgroup">
             <button
                pButton
                type="button"
                icon="pi pi-plus"
+               style="width: 100px;"
                class="ui-button-success"
             ></button>
             <input
@@ -168,14 +167,12 @@
                pButton
                type="button"
                icon="pi pi-minus"
+               style="width: 100px;"
                class="ui-button-danger"
             ></button>
          </div>
-      </div>
-   </div>
-
-   <p-tabView>
-      <p-tabPanel header="Retirar Ingredientes" leftIcon="pi pi-calendar">
+      </p-tabPanel>
+      <p-tabPanel header="Ingredientes" leftIcon="pi pi-calendar">
          <div style="margin-top: 20px;">
             <p-listbox
                [options]="ingredientes"
@@ -192,22 +189,38 @@
             </p-listbox>
          </div>
       </p-tabPanel>
-      <p-tabPanel header="Incluir Adicionais" leftIcon="pi pi-inbox">
-         <p-dropdown
-            [options]="ingredientesAdicionais"
-            placeholder="Selecione"
-            #categoria="ngModel"
-            name="categoria"
-            required
-            [(ngModel)]="produto.categoria.id"
-         >
-         </p-dropdown>
+      <p-tabPanel header="Adicionais" leftIcon="pi pi-inbox">
+         <div class="p-grid">
+            <div class="p-col-12 p-md-6 p-lg-3">
+               <p-dropdown
+                  [options]="adicionais"
+                  [(ngModel)]="produtoAdicionalEscolhido"
+                  placeholder="Selecione Adicional"
+               >
+               </p-dropdown>
+            </div>
+            <div class="p-col-12 p-md-6 p-lg-3">
+               <p-spinner
+                  [(ngModel)]="quantidade"
+                  [min]="1"
+                  [max]="20"
+               ></p-spinner>
+            </div>
+            <!-- <div class="p-col-12 p-md-6 p-lg-3">
+               {{ produto.valorUnitario | currency: "BRL":true:"1.2-2" }} 
+            </div> -->
+            <div class="p-col-12 p-md-6 p-lg-3">
+               <button
+                  pButton
+                  type="button"
+                  icon="pi pi-plus"
+                  label="Incluir Adicional"
+                  (click)="incluirAdicionalnoProduto($event)"
+               ></button>
+            </div>
+         </div>
       </p-tabPanel>
-      <p-tabPanel
-         header="Observações"
-         leftIcon="pi pi-user"
-         rightIcon="pi pi-star"
-      >
+      <p-tabPanel header="Observações" leftIcon="pi pi-user">
          <textarea
             pInputTextarea
             name="caracteristica"
@@ -223,7 +236,7 @@
          pButton
          type="button"
          icon="pi pi-plus"
-         label="Adicionar"
+         label="Adicionar Produto"
          (click)="adicionarProduto($event, produto)"
          style="margin-top:0"
       ></button>

@@ -32,8 +32,8 @@ export class Produto {
    codigoBarras: string;
    caracteristica: string;
    situacao = 'ATIVO';
-   ingrediente = 'NAO';
-   adicional = 'NAO';
+   ingrediente = 'false';
+   adicional = 'false';
    valorUnitario: number;
    categoria = new Categoria();
    unidade = new Unidade();
@@ -69,11 +69,8 @@ export class Venda_Item {
 export class Venda_Item_Adicional {
    id: number;
    quantidade: number;
-   valorUnitarioSemDesconto: number;
-   // valorUnitarioComDesconto: number;
+   valorUnitario: number;
    produto = new Produto();
-   // venda = new Pedido();
-   adicionais = [];
 }
 
 

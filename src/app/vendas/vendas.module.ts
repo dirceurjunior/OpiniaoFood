@@ -29,7 +29,6 @@ import { CommonModule } from '@angular/common';
    imports: [
       CommonModule,
       FormsModule,
-
       InputTextModule,
       ButtonModule,
       TableModule,
@@ -45,7 +44,6 @@ import { CommonModule } from '@angular/common';
       AccordionModule,
       TabViewModule,
       InputTextareaModule,
-
       SharedModule,
       VendasRoutingModule
    ]

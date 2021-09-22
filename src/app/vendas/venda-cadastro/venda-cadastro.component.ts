@@ -3,7 +3,7 @@ import { MesaService } from '../../mesas/mesa.service';
 import { ProdutoService, ProdutoFiltro } from '../../produtos/produto.service';
 import { VendaService } from './../venda.service';
 import { NgForm } from '@angular/forms';
-import { Venda, Produto, Mesa, Venda_Item } from '../../core/model';
+import { Venda, Produto, Mesa, Venda_Item, Venda_Item_Adicional } from '../../core/model';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../core/error-handler.service';
@@ -24,9 +24,13 @@ export class VendaCadastroComponent implements OnInit {
 
    mesas: [];
 
+   adicionais: [];
+
    filtroProduto = new ProdutoFiltro();
 
    categoriaEscolhida: string;
+
+   produtoAdicionalEscolhido: number;
 
    sortField: string;
 
@@ -42,11 +46,13 @@ export class VendaCadastroComponent implements OnInit {
 
    item = new Venda_Item();
 
+   item_adicional = new Venda_Item_Adicional();
+
    ingredientesSelecionados: Produto[];
 
    ingredientes: Produto[];
 
-   ingredientesAdicionais: Produto[];
+   adicionaisSelecionados = [];
 
    quantidade = 1;
 
@@ -72,6 +78,7 @@ export class VendaCadastroComponent implements OnInit {
       } else { }
       this.carregarMesas(idMesa);
       this.carregarCategorias();
+      // this.carregarAdicionais();
    }
 
    salvar() {
@@ -92,6 +99,7 @@ export class VendaCadastroComponent implements OnInit {
       this.item.quantidade = this.quantidade;
       this.item.valorUnitarioSemDesconto = produtoSelecionado.valorUnitario;
       // console.log(this.item);
+      this.item.adicionais = this.adicionaisSelecionados;
       this.venda.dataCriacao = new Date();
       this.venda.dataVenda = new Date();
       this.venda.itens.push(this.item);
@@ -107,7 +115,24 @@ export class VendaCadastroComponent implements OnInit {
       this.displayDialog = false;
    }
 
+   incluirAdicionalnoProduto() {
+      console.log(this.adicionaisSelecionados.length);
+      console.log(this.produtoAdicionalEscolhido);
+      this.produtoService.buscarPorId(this.produtoAdicionalEscolhido)
+         .then(produto => {
+            this.produto = produto;
+            console.log(this.produto);
+            this.item_adicional.quantidade = 1;
+            this.item_adicional.valorUnitario = this.produto.valorUnitario;
+            this.item_adicional.produto = this.produto;
+            this.adicionaisSelecionados.push(this.item_adicional);
+         })
+      console.log(this.item_adicional);
+   }
+
+
    editarProdutoVenda(event: Event, produtoSelecionado: Produto) {
+      this.carregarAdicionais();
       this.produtoService.buscarPorId(produtoSelecionado.id)
          .then(produto => {
             this.produto = produto;
@@ -118,10 +143,10 @@ export class VendaCadastroComponent implements OnInit {
             this.atualizarTituloEdicao();
          })
          .catch(erro => this.errorHandler.handle(erro));
-
       this.displayDialog = true;
       event.preventDefault();
    }
+
 
    adicionarVenda() {
       console.log('adicionando venda');
@@ -149,8 +174,25 @@ export class VendaCadastroComponent implements OnInit {
    carregarCategorias() {
       return this.categoriaService.listarTodas()
          .then(categorias => {
+            console.log(categorias);
+
             this.categorias = categorias.content.map(c => {
                return { label: c.descricao, value: c.id };
+            });
+         })
+         .catch(erro => this.errorHandler.handle(erro));
+   }
+
+   carregarAdicionais() {
+      this.filtroProduto = new ProdutoFiltro();
+      this.filtroProduto.adicional = 'SIM';
+      this.filtroProduto.itensPorPagina = 0;
+      return this.produtoService.pesquisar(this.filtroProduto)
+         .then(adicionais => {
+            console.log(adicionais);
+
+            this.adicionais = adicionais.produtos.map(c => {
+               return { label: c.nome, value: c.id };
             });
          })
          .catch(erro => this.errorHandler.handle(erro));
@@ -170,7 +212,6 @@ export class VendaCadastroComponent implements OnInit {
       return this.produtoService.pesquisar(this.filtroProduto)
          .then(resultado => {
             this.produtos = resultado.produtos;
-            console.log(this.produtos);
          })
          .catch(erro => this.errorHandler.handle(erro));
    }
