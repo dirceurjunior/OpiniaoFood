@@ -45,6 +45,7 @@
       "ng2-currency-mask": "^5.3.1",
       "ng2-toastr": "^4.1.2",
       "ng2-toasty": "^4.0.3",
+      "primeflex": "^1.0.0",
       "primeicons": "^2.0.0",
       "primeng": "^8.1.1",
       "protractor": "~5.4.0",

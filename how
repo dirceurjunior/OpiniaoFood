@@ -1,0 +1,41 @@
+[33mcommit 9d9046d3584cd3dce5fefaa039359f3ede806581[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Dirceu R Junior <dirceu.r.junior@gmail.com>
+Date:   Wed Mar 11 19:38:29 2020 -0300
+
+    Alteração de Módulo Pedido para Venda
+
+[33mcommit f63b5200e4457553bfc6c3d68120477143acd1eb[m
+Author: Dirceu R Junior <dirceu.r.junior@gmail.com>
+Date:   Wed Mar 11 18:56:21 2020 -0300
+
+    Alterações no cadastro do Produto e Adicionais no Pedido
+
+[33mcommit 102b761e21c97a159f72e6b9afaecc83adec1876[m
+Author: Dirceu R Junior <dirceu.r.junior@gmail.com>
+Date:   Wed Mar 11 01:41:56 2020 -0300
+
+    Modificações server.js
+
+[33mcommit cddb99693814ebd20f8615c0145e00b8adba81a9[m
+Author: Dirceu R Junior <dirceu.r.junior@gmail.com>
+Date:   Tue Mar 10 23:51:31 2020 -0300
+
+    Modificações environment
+
+[33mcommit c5c3e4e5dc4e039caee6afe9621eadf8a5672f9d[m
+Author: Dirceu R Junior <dirceu.r.junior@gmail.com>
+Date:   Tue Mar 10 19:40:02 2020 -0300
+
+    Alteração Cadastro de Produtos
+
+[33mcommit 47b1bbf1563dec6711bb41242f23e5bcc9a488fe[m
+Author: Dirceu R Junior <dirceu.r.junior@gmail.com>
+Date:   Tue Mar 10 19:31:59 2020 -0300
+
+    Alteração Readme.md\
+
+[33mcommit 964d6348ce0d02c91c514424f30406ff24478a3e[m
+Author: Dirceu R Junior <dirceu.r.junior@gmail.com>
+Date:   Tue Mar 10 19:12:35 2020 -0300
+
+    Inicio do Projeto Opinião System
